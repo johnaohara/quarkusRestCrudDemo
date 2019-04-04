@@ -1,0 +1,12 @@
+target
+.idea
+*.iml
+prod.sh
+.settings
+.classpath
+.project
+.DS_Store
+.java-version
+dependency-reduced-pom.xml
+server.log
+quarkus.log

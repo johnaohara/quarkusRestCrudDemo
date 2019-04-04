@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.quarkus</groupId>
+    <artifactId>rest-http-crud-parent</artifactId>
+    <version>1.0.0.Alpha1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>rest-http-crud-quarkus-vertx</artifactId>
+
+  <name>Quarkus - Relational Database Backend Vert.x Mission</name>
+
+  <properties>
+    <version.quarkus>0.12.0</version.quarkus>
+    <version.resteasy>4.0.0.Beta6</version.resteasy>
+    <version.vertx>3.6.2</version.vertx>
+    <version.reactive-pg-client>0.11.1</version.reactive-pg-client>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${version.quarkus}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-vertx</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jsonb</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.reactiverse</groupId>
+        <artifactId>reactive-pg-client</artifactId>
+        <version>${version.reactive-pg-client}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-rx-java2</artifactId>
+      <version>${version.vertx}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+      <finalName>${project.artifactId}</finalName>
+      <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${version.quarkus}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+
+    <profile>
+      <id>native-image</id>
+      <activation>
+        <property>
+          <name>!no-native</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <version>${version.quarkus}</version>
+            <executions>
+              <execution>
+                <id>native-image</id>
+                <goals>
+                  <goal>native-image</goal>
+                </goals>
+                <configuration>
+                  <cleanupServer>true</cleanupServer>
+                  <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                  <graalvmHome>${graalvmHome}</graalvmHome>
+                  <enableJni>false</enableJni>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>

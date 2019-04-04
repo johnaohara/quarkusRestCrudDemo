@@ -1,0 +1,7 @@
+FROM openjdk:8-jre-alpine
+WORKDIR /work
+RUN chmod 777 /work
+COPY ./target/rest-crud-http-thorntail.jar /work/application.jar
+EXPOSE 8080
+ENV JAVA_OPTS "$JAVA_OPTS -Djava.net.preferIPv4Stack=true -Xmx128m"
+ENTRYPOINT java ${JAVA_OPTS} -cp /work/application -jar /work/application.jar
