@@ -15,8 +15,8 @@
   <name>Quarkus - Relational Database Backend Mission</name>
 
   <properties>
-    <version.quarkus>0.12.0</version.quarkus>
-    <version.resteasy>4.0.0.Beta6</version.resteasy>
+    <version.quarkus>0.13.0</version.quarkus>
+    <version.resteasy>4.0.0.CR1</version.resteasy>
   </properties>
 
   <dependencyManagement>
