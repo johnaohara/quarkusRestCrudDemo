@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for USERS in 1 5 10 15 20 25
+for USERS in 1 5 10 15 20 25 30 35 40
 do
   echo "Runnning with $USERS users"
 	for run in {1..2}
