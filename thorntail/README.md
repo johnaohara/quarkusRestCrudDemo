@@ -6,6 +6,10 @@
 
 # Bulding the demo
 
+Ensure that you are in the thorntail directory:
+
+> cd ./thorntail/
+
 Build with Maven:
 
 > mvn package
