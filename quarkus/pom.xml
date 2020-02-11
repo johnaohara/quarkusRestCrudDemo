@@ -15,7 +15,7 @@
   <name>Quarkus - Relational Database Backend Mission</name>
 
   <properties>
-    <version.quarkus>0.23.2</version.quarkus>
+    <version.quarkus>1.3.0.Alpha1</version.quarkus>
   </properties>
 
   <dependencyManagement>
