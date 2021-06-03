@@ -15,7 +15,18 @@
   <name>Quarkus - Relational Database Backend Mission</name>
 
   <properties>
-    <version.quarkus>1.11.0.Final</version.quarkus>
+    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <quarkus-plugin.version>1.13.6.Final</quarkus-plugin.version>
+    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+    <quarkus.platform.version>1.13.6.Final</quarkus.platform.version>
+    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <version.quarkus>1.13.6.Final</version.quarkus>
   </properties>
 
   <dependencyManagement>
@@ -81,9 +92,8 @@
   </build>
 
   <profiles>
-
     <profile>
-      <id>native-image</id>
+      <id>native</id>
       <activation>
         <property>
           <name>!no-native</name>
@@ -92,26 +102,29 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-maven-plugin</artifactId>
-            <version>${version.quarkus}</version>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${surefire-plugin.version}</version>
             <executions>
               <execution>
-                <id>native-image</id>
                 <goals>
-                  <goal>native-image</goal>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
                 </goals>
                 <configuration>
-                  <cleanupServer>true</cleanupServer>
-                  <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                  <graalvmHome>${graalvmHome}</graalvmHome>
-                  <enableJni>false</enableJni>
+                  <systemPropertyVariables>
+                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                    <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                    <maven.home>${maven.home}</maven.home>
+                  </systemPropertyVariables>
                 </configuration>
               </execution>
             </executions>
           </plugin>
         </plugins>
       </build>
+      <properties>
+        <quarkus.package.type>native</quarkus.package.type>
+      </properties>
     </profile>
 
   </profiles>
